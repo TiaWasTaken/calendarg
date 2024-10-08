@@ -8,7 +8,7 @@ export function Navbar() {
     <div className="flex py-5 items-center justify-between">
       <Link href="/" className="flex items-center gap-2">
         <Image src={Logo} alt="Logo" className="size-10" />
-        <h4 className="text-3xl font-semibold">Calend<span className="text-purple-500">Arg</span></h4>
+        <h4 className="text-3xl font-semibold">Calend<span className="text-[#884DEE]">Arg</span></h4>
       </Link>
       <AuthModal />
     </div>
