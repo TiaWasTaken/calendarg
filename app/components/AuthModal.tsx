@@ -4,6 +4,7 @@ import { DialogContent, DialogHeader } from '../../components/ui/dialog.tsx';
 import Image from 'next/image'
 import Logo from '@/public/logo.png'
 import { signIn } from '../lib/auth.ts';
+import { GithubAuthButton, GoogleAuthButton } from './SubmitButtons.tsx';
 
 export function AuthModal() {
   return(
@@ -22,7 +23,7 @@ export function AuthModal() {
 
             await signIn("google");
           }} className="w-full">
-            <Button className="w-full">Sign in with Google</Button>
+            <GoogleAuthButton />
           </form>
 
           <form action={ async () => {
@@ -30,7 +31,7 @@ export function AuthModal() {
 
             await signIn("github");
           }} className="w-full">
-            <Button className="w-full">Sign in with Github</Button>
+            <GithubAuthButton />
           </form>
 
         </div>
