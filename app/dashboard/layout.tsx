@@ -9,12 +9,13 @@ import { Button } from '@/components/ui/button.tsx';
 import { Menu } from 'lucide-react';
 import { SheetContent } from '../../components/ui/sheet.tsx';
 import { ThemeToggle } from '../components/ThemeToggle.tsx';
-import { DropdownMenu, DropdownMenuTrigger } from '../../components/ui/dropdown-menu.tsx';
-import { auth } from '../lib/auth';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../../components/ui/dropdown-menu.tsx';
+import { auth, signOut } from '../lib/auth';
+import { requireUser } from '../lib/hooks.ts';
 
 export default async function DashboardLayout({children}: {children: ReactNode}) {
 
-  const session = await auth();
+  const session = await requireUser();
 
   return(
     <>
@@ -61,13 +62,42 @@ export default async function DashboardLayout({children}: {children: ReactNode})
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button>
-                    <img src={session?.user?.image as string} alt="Profile Image" width={20} height={20} />
+                  <Button variant="secondary" size="icon" className="rounded-full">
+                    {session?.user?.image ? (
+                      <Image
+                        src={session?.user?.image as string}
+                        alt="Profile Image"
+                        width={18}
+                        height={18}
+                        className="rounded-full w-full h-full"
+                      />
+                    ) : (
+                      <Image
+                        src=""
+                        alt="Fallback Profile Image"
+                        width={18}
+                        height={18}
+                        className="rounded-full w-full h-full"
+                      />
+                    )}
                   </Button>
                 </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild><Link href="/dashboard/settings">Settings</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><form className="w-full" action={async () => {
+                    "use server"
+
+                    await signOut();
+                  }}><button className="w-full text-left">Log out</button></form></DropdownMenuItem>
+                </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </header>
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+            {children}
+          </main>
         </div>
 
       </div>
