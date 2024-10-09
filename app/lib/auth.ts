@@ -6,7 +6,6 @@ import prisma from './db'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   // The providers for auth in the calendar
-  allowDangerousEmailAccountLinking: true,
   adapter: PrismaAdapter(prisma),
   providers:[Github, Google],
 });
