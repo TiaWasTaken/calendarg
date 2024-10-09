@@ -28,7 +28,7 @@ export function GoogleAuthButton() {
 }
 
 export function GithubAuthButton() {
-  const {pending} = useFormStatus();
+const {pending} = useFormStatus();
 
   return (
     <>
