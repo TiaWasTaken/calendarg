@@ -8,4 +8,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   // The providers for auth in the calendar
   adapter: PrismaAdapter(prisma),
   providers:[Github, Google],
+  allowDangerousEmailAccountLinking: true,
 });
