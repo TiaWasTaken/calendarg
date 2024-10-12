@@ -12,10 +12,32 @@ import { ThemeToggle } from '../components/ThemeToggle.tsx';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../../components/ui/dropdown-menu.tsx';
 import { auth, signOut } from '../lib/auth';
 import { requireUser } from '../lib/hooks.ts';
+import { redirect } from 'next/navigation';
+import prisma from '../lib/db.ts';
+
+
+async function getData(userId: string){
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      userName: true,
+    },
+  });
+
+  if(!data.userName){
+    return redirect("/onboarding");
+  }
+
+  return data;
+}
 
 export default async function DashboardLayout({children}: {children: ReactNode}) {
 
   const session = await requireUser();
+  
+  const data = await getData(session.user?.id as string);
 
   return(
     <>
@@ -65,18 +87,18 @@ export default async function DashboardLayout({children}: {children: ReactNode})
                   <Button variant="secondary" size="icon" className="rounded-full">
                     {session?.user?.image ? (
                       <Image
-                        src={session?.user?.image as string}
+                        src={session?.user?.image.replace('s96-c', 's512-c')}
                         alt="Profile Image"
-                        width={18}
-                        height={18}
+                        width={500}
+                        height={500}
                         className="rounded-full w-full h-full"
                       />
                     ) : (
                       <Image
                         src=""
                         alt="Fallback Profile Image"
-                        width={18}
-                        height={18}
+                        width={500}
+                        height={500}
                         className="rounded-full w-full h-full"
                       />
                     )}
