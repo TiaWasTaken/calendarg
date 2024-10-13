@@ -23,11 +23,18 @@ async function getData(userId: string){
     },
     select: {
       userName: true,
+      grantId: true,
     },
   });
 
+  // If the user does not have a username it gets redirected to the onboarding page to get one
   if(!data.userName){
     return redirect("/onboarding");
+  }
+
+  // If the user does not have a nylas account linked it gets redirected to the log in (nylas)
+  if(!data.grantId){
+    return redirect("/onboarding/grant-id");
   }
 
   return data;
