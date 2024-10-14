@@ -14,6 +14,7 @@ import { auth, signOut } from '../lib/auth';
 import { requireUser } from '../lib/hooks.ts';
 import { redirect } from 'next/navigation';
 import prisma from '../lib/db.ts';
+import { Toaster } from '@/components/ui/sonner.tsx';
 
 
 async function getData(userId: string){
@@ -130,6 +131,7 @@ export default async function DashboardLayout({children}: {children: ReactNode})
         </div>
 
       </div>
+      <Toaster richColors closeButton/>
     </>
   )
 }
