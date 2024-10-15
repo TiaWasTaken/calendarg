@@ -5,6 +5,7 @@ import { requireUser } from "./lib/hooks";
 import {parseWithZod} from '@conform-to/zod';
 import { onboardingSchemaValidation, settingsSchema } from "./lib/zodSchemas";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function OnboardingAction(prevState: any, formData: FormData) {
 
@@ -110,4 +111,47 @@ export async function SettingsAction(prevState: any, formData: FormData) {
   });
 
   return redirect("/dashboard");
+}
+
+export async function updateAvailabilityAction(formData: FormData) {
+  const session = await requireUser();
+
+  // Takes the form data and converts it into an object
+  const rawData = Object.fromEntries(formData.entries());
+
+  const availabilityData = Object.keys(rawData).filter((key) => key.startsWith("id-")).map((key) => {
+    
+    // Remove the "id-" to get solely the id of the item in order to use it
+    const id = key.replace("id-", "");
+
+    return {
+      id,
+      isActive: rawData[`isActive-${id}`] === "on",
+      fromTime: rawData[`fromTime-${id}`] as string,
+      tillTime: rawData[`tillTime-${id}`] as string,
+    };
+  });
+
+  // Map over data in order to change the prisma mutation once to loop over all the days
+  try {
+    // transaction makes it active once for everything
+    await prisma.$transaction(
+      availabilityData.map((item) => prisma.availability.update({
+        where: {
+          id: item.id
+        },
+        data: {
+          isActive: item.isActive,
+          fromTime: item.fromTime,
+          tillTime: item.tillTime,
+        }
+      }))
+    )
+
+    // Resets the cache for the route and give a message
+    
+    revalidatePath("/dashboard/availability");
+  } catch (error) {
+    console.log(error);
+  }
 }
