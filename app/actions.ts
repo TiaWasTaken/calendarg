@@ -6,6 +6,8 @@ import {parseWithZod} from '@conform-to/zod';
 import { onboardingSchemaValidation, settingsSchema } from "./lib/zodSchemas";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export async function OnboardingAction(prevState: any, formData: FormData) {
 
@@ -149,7 +151,6 @@ export async function updateAvailabilityAction(formData: FormData) {
     )
 
     // Resets the cache for the route and give a message
-    
     revalidatePath("/dashboard/availability");
   } catch (error) {
     console.log(error);
