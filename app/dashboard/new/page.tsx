@@ -49,25 +49,28 @@ export default function NewEventRoute() {
           <CardContent className="grid gap-y-5">
             <div className="flex flex-col gap-y-2">
               <Label>Title</Label>
-              <Input name={fields.title.name} placeholder="30 minute meeting"/>
+              <Input name={fields.title.name} key={fields.title.key} defaultValue={fields.title.initialValue} placeholder="30 minute meeting"/>
+              <p className="text-red-500 text-sm">{fields.title.errors}</p>
             </div>
 
             <div className="flex flex-col gap-y-2">
               <Label>URL Slug</Label>
               <div className="flex rounded-md">
                 <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-muted bg-muted text-sm text-muted-foreground">calendarg.com/</span>
-                <Input className="rounded-l none" placeholder="Example-url-1"/>
+                <Input name={fields.url.name} key={fields.url.key} defaultValue={fields.url.initialValue} className="rounded-l none" placeholder="Example-url-1"/>
               </div>
+              <p className="text-red-500 text-sm">{fields.url.errors}</p>
             </div>
 
             <div className="flex flex-col gap-y-2">
               <Label>Description</Label>
-              <Textarea placeholder="Join me in this meeting."/>
+              <Textarea name={fields.description.name} key={fields.description.key} defaultValue={fields.description.initialValue} placeholder="Join me in this meeting."/>
+              <p className="text-red-500 text-sm">{fields.description.errors}</p>
             </div>
 
             <div className="flex flex-col gap-y-2">
               <Label>Duration</Label>
-              <Select>
+              <Select name={fields.duration.name} key={fields.duration.key} defaultValue={fields.duration.initialValue} >
                 <SelectTrigger>
                   <SelectValue placeholder="Select duration"/>
                 </SelectTrigger>
@@ -82,15 +85,18 @@ export default function NewEventRoute() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              <p className="text-red-500 text-sm">{fields.duration.errors}</p>
             </div>
 
             <div className="grid gap-y-2">
               <Label>Video Call Provider</Label>
+              <input type="hidden" name={fields.videoCallSoftware.name} value={activePlatform} />
               <ButtonGroup >
                 <Button onClick={() => setActivePlatform("Zoom Meeting")} className="w-full" variant={activePlatform === 'Zoom Meeting' ? "secondary" : "outline"} type="button">Zoom</Button>
                 <Button onClick={() => setActivePlatform("Google Meet")} className="w-full" variant={activePlatform === 'Google Meet' ? "secondary" : "outline"} type="button">Google Meet</Button>
                 <Button onClick={() => setActivePlatform("Microsoft Teams")} className="w-full" variant={activePlatform === 'Microsoft Teams' ? "secondary" : "outline"} type="button">Microsoft Teams</Button>
               </ButtonGroup>
+              <p className="text-red-500 text-sm">{fields.videoCallSoftware.errors}</p>
             </div>
           </CardContent>
 
