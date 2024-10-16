@@ -7,7 +7,9 @@ import prisma from '../lib/db';
 import { EmptyState } from '../components/EmptyState';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Users2 } from 'lucide-react';
+import { ExternalLink, Link2, Pen, SettingsIcon, Trash, Users2 } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -64,6 +66,42 @@ export default async function DashboardPage() {
           {data.eventType.map((item) => (
 
           <div className="overflow-hidden shadow rounded-lg border relative" key={item.id}>
+            <div className="absolute top-2 right-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <SettingsIcon className="size-4"/>
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Event</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem asChild>
+                      <Link href={`/${data.userName}/${item.url}`}><ExternalLink className="mr-2 size-4"/>Preview</Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem>
+                      <Link2 className="mr-2 size-4" />
+                      Copy
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem>
+                      <Pen className="size-4 mr-2" />
+                      Edit
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem>
+                    <Trash className="size-4 mr-2" color="#F44336"/>
+                    <span className="text-red-500">Delete</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
             <Link href="/" className="flex items-center p-5">
               <div className="flex shrink-0">
                 <Users2 className="size-6"/>  
@@ -71,12 +109,17 @@ export default async function DashboardPage() {
 
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt>
-
-                  </dt>
+                  <dt className=" flex text-sm align-center font-medium text-muted-foreground">{item.duration} Minutes Meeting</dt>
+                  <dd className="text-lg font-medium">{item.title}</dd>
                 </dl>
               </div>
             </Link>
+
+            <div className="flex bg-muted px-5 py-3 justify-between items-center">
+              <Switch />
+
+              <Button>Edit Event</Button>
+            </div>
           </div>
 
           ))}

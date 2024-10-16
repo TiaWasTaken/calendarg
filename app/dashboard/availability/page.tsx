@@ -32,7 +32,7 @@ export default async function AvailablilityRoute() {
     <Card>
       <CardHeader>
         <CardTitle>Availability</CardTitle>
-        <CardDescription>In this sessionyou can manage your availability.</CardDescription>
+        <CardDescription>In this session you can manage your availability.</CardDescription>
       </CardHeader>
 
       <form action={updateAvailabilityAction}>
