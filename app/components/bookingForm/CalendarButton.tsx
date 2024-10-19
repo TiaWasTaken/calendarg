@@ -19,7 +19,7 @@ export function CalendarButton(props: AriaButtonProps<"button"> & {
   const { focusProps } = useFocusRing()
 
   return(
-    <Button variant="outline" size="icon" ref={ref} disabled={props.isDisabled} {...mergeProps(buttonProps, focusProps)}>
+    <Button className="mr-3" variant="outline" size="icon" ref={ref} disabled={props.isDisabled} {...mergeProps(buttonProps, focusProps)}>
       {props.children}
     </Button>
   )
