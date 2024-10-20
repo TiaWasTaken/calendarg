@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ExternalLink, Link2, Pen, SettingsIcon, Trash, Users2 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { CopyLinkMenuItem } from '../components/CopyLinkMenu';
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -82,10 +83,7 @@ export default async function DashboardPage() {
                       <Link href={`/${data.userName}/${item.url}`}><ExternalLink className="mr-2 size-4"/>Preview</Link>
                     </DropdownMenuItem>
 
-                    <DropdownMenuItem>
-                      <Link2 className="mr-2 size-4" />
-                      Copy
-                    </DropdownMenuItem>
+                    <CopyLinkMenuItem meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`}/>
 
                     <DropdownMenuItem>
                       <Pen className="size-4 mr-2" />
