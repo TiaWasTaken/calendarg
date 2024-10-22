@@ -8,7 +8,7 @@ const features = [
   },
   {
     name: 'Blazing fast',
-    description: 'The communication between server and client is extremely fast due to the architechture of the website',
+    description: 'The communication between server and client is extremely fast due to the architechture of the website.',
     icon: CloudRain,
   },
   {
@@ -35,7 +35,7 @@ export function Features(){
       </div>
 
       <div className="max-w-2xl mx-auto mt-16 sm:mt-20 lg:mt-24 lg:max-2-4xl">
-        <div className="grid max-2-xl gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+        <div className="grid max-w-2xl gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
           {features.map((feature) => (
             <div key={feature.name} className="relative pl-16">
               <div className="text-base font-medium leading-7">
