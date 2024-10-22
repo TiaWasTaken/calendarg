@@ -20,6 +20,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "CalendArg",
   description: "Your calendar app for meeting schedule",
+  icons: {
+    icon: './favicon.ico'
+  }
 };
 
 export default function RootLayout({
