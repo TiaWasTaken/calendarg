@@ -96,9 +96,11 @@ export default async function DashboardPage() {
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
 
-                  <DropdownMenuItem>
-                    <Trash className="size-4 mr-2" color="#F44336"/>
-                    <span className="text-red-500">Delete</span>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/dashboard/event/${item.id}/delete`}>
+                            <Trash className="size-4 mr-2" color="#F44336"/>
+                            <span className="text-red-500">Delete</span>
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
