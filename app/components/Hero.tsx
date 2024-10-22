@@ -49,8 +49,8 @@ export function Hero(){
   </g>
   <defs>
     <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D8B4FE" />
-      <stop offset="100%" stop-color="#7C3AED" />
+      <stop offset="0%" stopColor="#D8B4FE" />
+      <stop offset="100%" stopColor="#7C3AED" />
     </linearGradient>
     <filter
       colorInterpolationFilters="sRGB"
