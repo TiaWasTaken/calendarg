@@ -6,6 +6,7 @@ import Logo from '@/public/logo.png'
 import { signIn } from '../lib/auth.ts';
 import { GithubAuthButton, GoogleAuthButton } from './SubmitButtons.tsx';
 
+
 export function AuthModal() {
   return(
     <Dialog>
